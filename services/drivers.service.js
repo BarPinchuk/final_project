@@ -14,12 +14,14 @@ export const fetchAllDrivers = () => {
 };
 
 /**
- * Retrieves a single driver by driverId.
+ * Retrieves a single driver by driverId, throws if not found.
  * @param {string} driverId - The driver's unique string ID.
- * @returns {Object|undefined} The driver object, or undefined if not found.
+ * @returns {Object} The driver object.
  */
 export const fetchDriverById = (driverId) => {
-  return getDriverById(driverId);
+  const driver = getDriverById(driverId);
+  if (!driver) throw new Error("Driver not found");
+  return driver;
 };
 
 /**
@@ -32,10 +34,12 @@ export const createDriver = (driver) => {
 };
 
 /**
- * Deletes a driver by driverId via the DAL.
+ * Deletes a driver by driverId, throws if not found.
  * @param {string} driverId - The driver's unique string ID.
- * @returns {Object|null} The deleted driver, or null if not found.
+ * @returns {Object} The deleted driver.
  */
 export const removeDriver = (driverId) => {
-  return deleteDriver(driverId);
+  const deleted = deleteDriver(driverId);
+  if (!deleted) throw new Error("Driver not found");
+  return deleted;
 };
